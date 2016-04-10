@@ -24,7 +24,9 @@ ds = -df;
 
 J = jacobian([df, dr, ds], [f, r, s]);
 
-FixPts = vpasolve([df == 0; dr == 0; ds == 0], [f, r, s])
+FixPts = vpasolve([df == 0; dr == 0; ds == 0; s+f+r == 1], [f, r, s])
+
+FixPts2 = solve([df == 0; dr == 0; ds == 0; s+f == 1], [f, r, s])
 
 % **********************
 % * Immunization Model *

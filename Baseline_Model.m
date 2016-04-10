@@ -1,10 +1,10 @@
 
-syms f s r d
+syms f s r d z
 
 c = 0.02;
 p = 0.1;
 z = 0.5;
-L = 0.01;
+L = 0.1;
 fatal = 0.0003;
 
 % ***************
@@ -24,7 +24,8 @@ ds = -df;
 
 J = jacobian([df, dr, ds], [f, r, s]);
 
-FixPts = vpasolve([df == 0; dr == 0; ds == 0], [f, r, s])
+FixPts = vpasolve([df == 0; s+f == 1], [f, s])
+
 
 % **********************
 % * Immunization Model *
@@ -34,6 +35,9 @@ FixPts = vpasolve([df == 0; dr == 0; ds == 0], [f, r, s])
 df = c*f*(1-f-r) - p*f;
 dr = z*p*f;
 ds = -df - dr;
+
+FixPts = vpasolve([df == 0; s+f == 1], [f, s])
+
 
 [T2, Y2] = ode45(@(t,y) double(subs([df; dr; ds],[f r s],[y(1) y(2) y(3)])),[0 100], [0.4 0.2 0.4])
 
@@ -66,7 +70,7 @@ legend('infectives', 'removes', 'susceptibles')
 test1 = zeros(length(Y3));
 test2 = zeros(length(Y3));
 
-for i = 1:length(Y3)
+for i = 1:length(Y2)
     test1(i) = Y3(i,1) - Y2(i,1);
     test2(i) = Y3(i,2) - Y2(i,2);
     test3(i) = Y3(i,3) - Y2(i,3);
