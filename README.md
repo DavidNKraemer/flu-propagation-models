@@ -5,3 +5,5 @@ This is the readme file. Writing more later.
 [1]: https://www.overleaf.com/4824963fffdhs
 
 Caleb was here.
+
+![][animation.gif]
