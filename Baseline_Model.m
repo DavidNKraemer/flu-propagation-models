@@ -21,7 +21,18 @@ J = jacobian([df, dr, ds], [f, r, s]);
 FixPts = vpasolve([df == 0, dr == 0, ds == 0], [f, r, s]);
 
 
+clear syms f s r d
+% Immunization Model
 
+syms f s r d
+
+c = 0.02;
+p = 0.1;
+z = 0;
+
+df = c*f*(1-f-r) - p*f;
+dr = z*p*f;
+ds = -df - dr;
 
 
 
