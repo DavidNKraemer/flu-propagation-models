@@ -6,4 +6,4 @@ This is the readme file. Writing more later.
 
 Caleb was here.
 
-![][animation.gif]
+![](animation.gif)
