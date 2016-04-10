@@ -12,7 +12,7 @@ class Person:
     infection_rate = 0.05
     recovery_threshold = 0.1
     immunization_threshold = 1.0
-    relapse_threshold = 0.2
+    relapse_threshold = 0.1
 
     def __init__(self, status):
         self.loc = -1 + np.random.rand(2) * 2

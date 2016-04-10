@@ -12,10 +12,10 @@ percent_remove = 0.1
 people = []
 
 # simulation parameters
-iterations = 10
+iterations = 600
 iteration = 0
-movement_speed = 2.5e-2
-radius = 0.3
+movement_speed = 1.00e-2
+radius = 0.25
 
 num_susceptibles = int(total_population * percent_susceptible)
 num_infectives   = int(total_population * percent_infective)
@@ -24,6 +24,8 @@ num_removes      = int(total_population * percent_remove)
 # plot configuration
 fig = plt.figure()
 ax = fig.add_subplot(111, autoscale_on = False, xlim = (-1,1), ylim = (-1,1))
+ax.set_xticklabels([])
+ax.set_yticklabels([])
 susceptible_coords = ax.plot([], [], label='Susceptible')[0]
 infective_coords= ax.plot([], [], label='Infective')[0]
 remove_coords = ax.plot([], [], label='Remove')[0]
@@ -73,7 +75,7 @@ def animate(iteration):
 
     return susceptible_coords, infective_coords, remove_coords
     
-ani = animation.FuncAnimation(fig, animate, frames=iterations, interval=30, 
+ani = animation.FuncAnimation(fig, animate, frames=iterations, interval=0, 
         blit=True, init_func=init)
 
 plt.show()
