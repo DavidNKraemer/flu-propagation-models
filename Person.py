@@ -32,12 +32,8 @@ class Person:
     the disease:
 
         * SUSCEPTIBLE. This person does not have the disease, but can catch it.
-        * INFECTIVE. This person has the disease and can infect others. They 
-                     can recover from the disease, either with full immunity or
-                     can potentially relapse. They can also die from the 
-                     disease.
+        * INFECTIVE. This person has the disease and can infect others.
         * REMOVE. This person does not have the disease and is immune to it. 
-                  However, this immunity can be compromised.
         * DEAD. This person is dead.
 
     Disease transmission is stochastic, but the probability that a SUSCEPTIBLE 
