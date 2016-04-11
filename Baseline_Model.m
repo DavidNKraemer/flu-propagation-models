@@ -70,6 +70,8 @@ legend('infectives', 'removes', 'susceptibles')
 test1 = zeros(length(Y3));
 test2 = zeros(length(Y3));
 
+%TODO: Change this
+
 for i = 1:length(Y2)
     test1(i) = Y3(i,1) - Y2(i,1);
     test2(i) = Y3(i,2) - Y2(i,2);
@@ -85,6 +87,8 @@ plot(test3, 'r')
 % **************************
 % * Model with Dead People *
 % **************************
+
+% TODO: Needs to be fixed
 
 df = c*f*(1-f-r-d) - p*f;
 dr = z*p*f - L*r;
