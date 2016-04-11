@@ -13,7 +13,6 @@ people = []
 
 # simulation parameters
 iterations = 600
-iteration = 0
 movement_speed = 1.00e-2
 radius = 0.25
 
