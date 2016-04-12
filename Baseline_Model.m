@@ -1,30 +1,44 @@
 
-syms f s r d z
+syms infectives susceptible removes dead
 
-c = 0.02;
-p = 0.1;
-z = 0.5;
-L = 0.1;
-fatal = 0.0003;
+% **********************
+% * Initial Conditions *
+% **********************
+
+initial_infectives = 0.4;
+initial_susceptible = 0.4;
+initial_removes = 0.2;
+initial_dead = 0;
+
+% **************
+% * Parameters *
+% **************
+
+contagion_rate = 0.02;
+recovery_rate = 0.1;
+resistance_rate = 0.5;
+lost_immunity_rate = 0.1;
+fatalality_rate = 0.03;
+
 
 % ***************
 % * Basic Model *
 % ***************
 
-df = c*f*(1-f-r) - p*f;
+df = contagion_rate*infectives*(1-infectives-removes) - recovery_rate*infectives;
 dr = 0;
 ds = -df;
 
-[T, Y] = ode45(@(t,y) double(subs([df; dr; ds],[f r s],[y(1) y(2) y(3)])),[0 100], [0.5 0.0 0.5]);
+[T, Y] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),[0 100], [initial_infectives initial_removes initial_susceptible]);
 
 %figure
 %hold off
 %plot(T,Y)
 %legend('infectives', 'removes', 'susceptibles')
 
-J = jacobian([df, dr, ds], [f, r, s]);
+J = jacobian([df, dr, ds], [infectives, removes, susceptible]);
 
-FixPts = vpasolve([df == 0; s+f == 1], [f, s])
+FixPtsBM = vpasolve([df == 0; susceptible+infectives == 1], [infectives, susceptible])
 
 
 % **********************
@@ -32,14 +46,14 @@ FixPts = vpasolve([df == 0; s+f == 1], [f, s])
 % **********************
 
 
-df = c*f*(1-f-r) - p*f;
-dr = z*p*f;
+df = contagion_rate*infectives*(1-infectives-removes) - recovery_rate*infectives;
+dr = resistance_rate*recovery_rate*infectives;
 ds = -df - dr;
 
-FixPts = vpasolve([df == 0; s+f == 1], [f, s])
+FixPtsIM = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [infectives, removes, susceptible])
 
 
-[T2, Y2] = ode45(@(t,y) double(subs([df; dr; ds],[f r s],[y(1) y(2) y(3)])),[0 100], [0.4 0.2 0.4])
+[T2, Y2] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),[0 100], [initial_infectives initial_removes initial_susceptible])
 
 figure
 hold off
@@ -51,11 +65,14 @@ legend('infectives', 'removes', 'susceptibles')
 % * Immunization Model with Lost Immunity *
 % *****************************************
 
-df = c*f*(1-f-r) - p*f;
-dr = z*p*f - L*r;
+df = contagion_rate*infectives*(1-infectives-removes) - recovery_rate*infectives;
+dr = resistance_rate*recovery_rate*infectives - lost_immunity_rate*removes;
 ds = -df - dr;
 
-[T3, Y3] = ode45(@(t,y) double(subs([df; dr; ds],[f r s],[y(1) y(2) y(3)])),[0 100], [0.4 0.2 0.4])
+FixPtsIMLI = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [infectives, removes, susceptible])
+
+
+[T3, Y3] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),[0 100], [initial_infectives initial_removes initial_susceptible])
 
 figure
 hold off
@@ -90,12 +107,15 @@ plot(test3, 'r')
 
 % TODO: Needs to be fixed
 
-df = c*f*(1-f-r-d) - p*f;
-dr = z*p*f - L*r;
-dd = f*i;
+df = contagion_rate*infectives*(1-infectives-removes-dead) - recovery_rate*infectives;
+dr = resistance_rate*recovery_rate*infectives - lost_immunity_rate*removes;
+dd = infectives*fatalality_rate;
 ds = -df - dr - dd;
 
-[T4, Y4] = ode45(@(t,y) double(subs([df; dr; dd; ds],[f r d s],[y(1) y(2) y(3) y(4)])),[0 100], [0.5 0.0 0.0 0.5]);
+FixPtsD = vpasolve([df == 0; dr == 0; dd == 0; susceptible+removes+infectives == 1], [infectives, removes, dead, susceptible])
+
+
+[T4, Y4] = ode45(@(t,y) double(subs([df; dr; dd; ds],[infectives removes dead susceptible],[y(1) y(2) y(3) y(4)])),[0 100], [initial_infectives initial_removes initial_dead initial_susceptible]);
 
 figure
 hold off
