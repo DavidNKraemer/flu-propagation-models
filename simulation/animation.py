@@ -6,16 +6,16 @@ plt.style.use('fivethirtyeight')
 
 # populations
 total_population = 100
-percent_susceptible = 0.5
+percent_susceptible = 0.4
 percent_infective = 0.4
-percent_remove = 0.1
+percent_remove = 0.2
 percent_dead = 0.0
 people = []
 
 # simulation parameters
-iterations = 1000
+iterations = 500
 movement_speed = 1.00e-2
-radius = 0.35
+radius = 4.00
 
 num_susceptibles = int(total_population * percent_susceptible)
 num_infectives   = int(total_population * percent_infective)
@@ -101,7 +101,7 @@ def animate(iteration):
     return susceptible_coords, infective_coords, remove_coords, dead_coords
 
 # make an animation!
-ani = animation.FuncAnimation(fig, animate, frames=iterations, interval=0, 
+ani = animation.FuncAnimation(fig, animate, frames=iterations, interval=0,
         blit=True, init_func=init)
 
 plt.show()

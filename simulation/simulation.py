@@ -3,9 +3,9 @@ import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 
 # populations
-num_susceptibles = 100
-num_infectives = 20
-num_removes = 10
+num_susceptibles = 40
+num_infectives = 40
+num_removes = 20
 
 susceptibles = [Person(SUSCEPTIBLE) for _ in range(num_susceptibles)]
 infectives = [Person(INFECTIVE) for _ in range(num_infectives)]
@@ -33,10 +33,10 @@ def plot_people(people):
 
 
 # simulation parameters
-iterations = 10
+iterations = 101
 iteration = 0
-movement_speed = 1.0e-2
-radius = 0.2
+movement_speed = 0.0e-2
+radius = 4.0
 
 while iteration < iterations:
 

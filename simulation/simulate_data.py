@@ -2,27 +2,27 @@ from Person import *
 import matplotlib.pyplot as plt
 import numpy as np
 try:
-    print("Attempting to import the Seaborn module...")
+    print("Attempting to import the Seaborn module...", end="")
     import seaborn as sns
     sns.set_context('poster')
     sns.set_style('whitegrid')
     print("Success!")
 except ImportError:
-    print("No such module exists! Using Matplotlib settings.")
+    print("\nNo such module exists! Using Matplotlib settings.")
     plt.style.use('fivethirtyeight')
 
 
 total_population = 100
-percent_susceptible = 0.6
-percent_infective = 0.3
-percent_remove = 0.1
+percent_susceptible = 0.4
+percent_infective = 0.4
+percent_remove = 0.2
 percent_dead = 0.0
 people = []
 
 # simulation parameters
-iterations = 500
-movement_speed = 1.00e-2
-radius = 0.25
+iterations = 101
+movement_speed = 0.00e-2
+radius = 4.00
 
 num_susceptibles = int(total_population * percent_susceptible)
 num_infectives   = int(total_population * percent_infective)
@@ -47,7 +47,7 @@ for i in range(iterations):
     dead         = [person for person in people if person.status is DEAD]
 
 
-    populations[i,:] = np.array([num_susceptibles, num_infectives, num_removes,
+    populations[i,:] = np.array([num_infectives, num_removes, num_susceptibles,
         num_dead]) / total_population
 
     # update the entire population positions and statuses
@@ -63,13 +63,13 @@ print(" Done!")
 
 print('Saving data...', end="", flush=True)
 np.savetxt('simulation_data.csv', populations, fmt='%1.4f', delimiter=',', newline='\n',
-        header='susceptible,infective,remove,dead')
+        header='infective,remove,susceptible,dead')
 print(" Done!")
 
 print('Saving plot...', end="", flush=True)
 
-labels = ['Susceptible', 'Infective', 'Remove', 'Dead']
-colors = ['green', 'red', 'blue', 'black']
+labels = ['Infective', 'Remove', 'Susceptible',  'Dead']
+colors = ['red', 'blue', 'green', 'black']
 
 fig, ax = plt.subplots(1,1, figsize=(8,8))
 box = ax.get_position()

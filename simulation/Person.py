@@ -63,9 +63,9 @@ class Person:
     # Underlying model parameters
     infection_rate = 0.02
     recovery_threshold = 0.1
-    immunization_threshold = 1.0
-    relapse_threshold = 0.1
-    fatality_threshold = 1.0e-2
+    immunization_threshold = 0.0
+    relapse_threshold = 0.0
+    fatality_threshold = 0.0e-2
 
     def __init__(self, status):
         """
@@ -190,12 +190,12 @@ class Person:
         Postconditions:
             * Person.status is either INFECTIVE or SUSCEPTIBLE
         """
-        for person in neighbors:
-            if person.status is INFECTIVE and np.random.rand() <= self.infection_rate:
-                self.status = INFECTIVE
-                break
-            else:
-                continue
+        infected_neighbors = len([person for person in neighbors if person.status is INFECTIVE])
+        prob = 1 - np.power(1 - self.infection_rate, infected_neighbors)
+        if np.random.rand() <= prob:
+            self.status = INFECTIVE
+        else:
+            pass
 
     def _update_as_infective(self):
         """
