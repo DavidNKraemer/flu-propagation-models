@@ -3,7 +3,7 @@
 This project contains all of the scripts for the MAT 306 Project on Disease
 Propagation. Contributors:
 
-* Evan Christensen
+* Evan Christianson
 * David Kraemer
 * Caleb Leedy
 * Will Royle
