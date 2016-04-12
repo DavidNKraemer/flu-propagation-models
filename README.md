@@ -13,6 +13,7 @@ Propagation. Contributors:
 * [Online LaTeX notes][1].
 * [Executive Summary][2].
 * [Technical Report][3].
+* [Presentation][4].
 
 # Using the Python simulation
 
@@ -69,6 +70,7 @@ of People objects interacting on a grid.
 [1]: https://www.overleaf.com/4824963fffdhs
 [2]: https://www.overleaf.com/4853557jbmcvv
 [3]: https://www.overleaf.com/4853603hjvrdn
+[4]: https://www.overleaf.com/4872212fdpzyn
 
 [py1]: simulation/Person.py
 [py2]: simulation/animation.py
