@@ -61,11 +61,11 @@ class Person:
     """
 
     # Underlying model parameters
-    infection_rate = 0.05
+    infection_rate = 0.02
     recovery_threshold = 0.1
     immunization_threshold = 1.0
     relapse_threshold = 0.1
-    fatality_threshold = 3.0e-4
+    fatality_threshold = 1.0e-2
 
     def __init__(self, status):
         """
