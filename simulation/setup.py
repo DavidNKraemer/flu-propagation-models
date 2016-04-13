@@ -16,10 +16,14 @@ num_dead            = int(total_population * percent_dead)
 initial_breakdown = [num_susceptibles, num_infectives, num_removes, num_dead]
 
 # simulation parameters
-iterations          = 101
+iterations          = 11
 movement_speed      = 1.00e-2
-radius              = 4.0e+0
-samples             = 100
+radius              = 1.0e-1
+samples             = 20
+
+# plot standardization
+labels = ['Infective', 'Remove', 'Susceptible',  'Dead']
+colors = ['red', 'blue', 'green', 'black']
 
 
 if PRINT_CONFIG:
