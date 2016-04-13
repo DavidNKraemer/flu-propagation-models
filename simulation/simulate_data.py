@@ -58,9 +58,7 @@ np.save('simulation_data', populations)
 print(" done.")
 # print('Saving plot...', end="", flush=True)
 # 
-# labels = ['Infective', 'Remove', 'Susceptible',  'Dead']
-# colors = ['red', 'blue', 'green', 'black']
-# 
+# # 
 # fig, ax = plt.subplots(1,1, figsize=(8,8))
 # box = ax.get_position()
 # 
@@ -81,6 +79,3 @@ print(" done.")
 # 
 # plt.savefig('simulation_plot.png',bbox_inches='tight')
 # plt.close()
-
-print(' done.')
-
