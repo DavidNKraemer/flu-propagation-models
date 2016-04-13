@@ -1,3 +1,9 @@
+# TODO
+
+* Quarantine populations
+* Sensitivity analysis
+* Compile recommendations
+
 # Flu propagation models
 
 This project contains all of the scripts for the MAT 306 Project on Disease
