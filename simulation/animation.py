@@ -1,26 +1,10 @@
+print("Running animation.py")
+from setup import *
 from Person import *
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 
 plt.style.use('fivethirtyeight')
-
-# populations
-total_population = 100
-percent_susceptible = 0.4
-percent_infective = 0.4
-percent_remove = 0.2
-percent_dead = 0.0
-people = []
-
-# simulation parameters
-iterations = 500
-movement_speed = 1.00e-2
-radius = 4.00
-
-num_susceptibles = int(total_population * percent_susceptible)
-num_infectives   = int(total_population * percent_infective)
-num_removes      = int(total_population * percent_remove)
-num_dead         = int(total_population * percent_dead)
 
 # plot configuration
 fig = plt.figure()

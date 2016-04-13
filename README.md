@@ -26,13 +26,14 @@ The simulation files can be found in the `simulation` directory. The files are:
 Basic usage for the animation is given by:
 
 ```
-$ python simulation/animation.py 
+$ python3 simulation/animation.py 
 ```
 
-If you want to use an interactive interpreter, use:
+Notice that this project is running on the Python 3 interpreter. The default
+interpreter is Python 2. If you want to use an interactive interpreter, use:
 
 ```bash
-$ ipython console
+$ ipython3 console
 ```
 
 to launch the IPython console, and then

@@ -39,10 +39,10 @@ class Person:
     Disease transmission is stochastic, but the probability that a SUSCEPTIBLE 
     person contracts the disease is given by
     \[
-        n_{r} \cdot c,
+        (1 - (1 - \\alpha)^n_{r})
     \]
     where $n_{r}$ is the number of people within a radius $r$ from the person, 
-    and $c$ is an underlying infectivity parameter. 
+    and $\\alpha$ is an underlying infectivity parameter. 
 
     Recovery from the disease, immunization, loss of immunization, and fatality
     are all stochastic as well, but this is determined exclusively by the 
