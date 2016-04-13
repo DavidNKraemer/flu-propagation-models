@@ -9,6 +9,8 @@ INFECTIVE = 1
 REMOVE = 2
 DEAD = 3
 
+draw_one = np.random.rand
+
 class Person:
     """
     This class models the behavior of a person in a grid world with disease 
@@ -192,7 +194,7 @@ class Person:
         """
         infected_neighbors = len([person for person in neighbors if person.status is INFECTIVE])
         prob = 1 - np.power(1 - self.infection_rate, infected_neighbors)
-        if np.random.rand() <= prob:
+        if draw_one() <= prob:
             self.status = INFECTIVE
         else:
             pass
@@ -207,13 +209,13 @@ class Person:
         Postconditions:
             * Person.status is either REMOVE, SUSCEPTIBLE, DEAD, or INFECTIVE
         """
-        if np.random.rand() <= self.recovery_threshold:
-            if np.random.rand() <= self.immunization_threshold:
+        if draw_one() <= self.recovery_threshold:
+            if draw_one() <= self.immunization_threshold:
                 self.status = REMOVE
             else:
                 self.status = SUSCEPTIBLE
         else:
-            if np.random.rand() <= self.fatality_threshold:
+            if draw_one() <= self.fatality_threshold:
                 self.status = DEAD
             else:
                 pass
@@ -228,7 +230,7 @@ class Person:
         Postconditions:
             * Person.status is either REMOVE or SUSCEPTIBLE
         """
-        if np.random.rand() <= self.relapse_threshold:
+        if draw_one() <= self.relapse_threshold:
             self.status = SUSCEPTIBLE
         else:
             pass

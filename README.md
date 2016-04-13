@@ -20,8 +20,32 @@ Propagation. Contributors:
 The simulation files can be found in the `simulation` directory. The files are:
 
 * [`Person.py`][py1]
-* [`animation.py`][py2]
-* [`simulation.py`][py3]
+* [`setup.py`][py0]
+* [`animation_simulation.py`][py2]
+* [`plot_simulation.py`][py3]
+* [`data_simulation.py`][py4]
+* [`analysis.py`][py5]
+
+## [`Person.py`][py1]
+
+This is the file that defines the `Person` class. The `Person` class has two
+class attributes:
+
+* `loc`, which is a Numpy ndarray with size (2,) that represents the class
+  instance's location at any given time. Each coordinate is some number in
+[-1,1].
+* `status`, which is one of four options: SUSCEPTIBLE, INFECTIVE, REMOVE, DEAD.
+
+Each person is represented by a point on a 2D grid. The model parameters, like
+the infection rate, recovery rate, immunization probability, relapse rate, and
+the fatality rate are specified as static class attributes (these are shared
+across all Person objects, although you can alter the parameters for individual
+objects).
+
+## [`animation.py`][py2]
+
+This file generates an animated plot of a Monte Carlo simulation with an array
+of People objects interacting on a grid. 
 
 Basic usage for the animation is given by:
 
@@ -45,26 +69,6 @@ In [1]: run 'simulation/animation.py'
 This allows you to access the environment variables used in the simulation. Not
 that you have to manually close the simulation with `CTRL-C` a few times.
 
-## [`Person.py`][py1]
-
-This is the file that defines the `Person` class. The `Person` class has two
-class attributes:
-
-* `loc`, which is a Numpy ndarray with size (2,) that represents the class
-  instance's location at any given time. Each coordinate is some number in
-[-1,1].
-* `status`, which is one of four options: SUSCEPTIBLE, INFECTIVE, REMOVE, DEAD.
-
-Each person is represented by a point on a 2D grid. The model parameters, like
-the infection rate, recovery rate, immunization probability, relapse rate, and
-the fatality rate are specified as static class attributes (these are shared
-across all Person objects, although you can alter the parameters for individual
-objects).
-
-## [`animation.py`][py2]
-
-This file generates an animated plot of a Monte Carlo simulation with an array
-of People objects interacting on a grid. 
 
  
 
@@ -76,7 +80,3 @@ of People objects interacting on a grid.
 [py1]: simulation/Person.py
 [py2]: simulation/animation.py
 [py3]: simulation/simulation.py
-
-
-
-<!--![](animation.gif)-->

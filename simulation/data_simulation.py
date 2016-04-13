@@ -1,18 +1,8 @@
-print("Running simulate_data.py")
+print("Running data_simulation.py")
 from setup import *
 from Person import *
 import matplotlib.pyplot as plt
 import numpy as np
-try:
-    print("Attempting to import the Seaborn module...", end="")
-    import seaborn as sns
-    sns.set_context('poster')
-    sns.set_style('whitegrid')
-    print(" success.")
-except ImportError:
-    print("\nNo such module exists! Using Matplotlib settings.")
-    plt.style.use('fivethirtyeight')
-
 people = []
 
 susceptibles = [Person(SUSCEPTIBLE) for _ in range(num_susceptibles)]
@@ -48,34 +38,8 @@ for sim in range(samples):
         num_infectives   = len(infectives)
         num_removes      = len(removes)
         num_dead         = len(dead)
-
 print("Simulation... done.")
+
 print('Saving data...', end="", flush=True)
-
-np.save('simulation_data', populations)
-        
-
+np.save('stochastic_data', populations)
 print(" done.")
-# print('Saving plot...', end="", flush=True)
-# 
-# # 
-# fig, ax = plt.subplots(1,1, figsize=(8,8))
-# box = ax.get_position()
-# 
-# for i in range(4):
-#     ax.plot(populations[:,i], label=labels[i], color=colors[i])
-#     ax.set_position([box.x0, box.y0 + box.height * 0.1,
-#                          box.width, box.height * 0.9])
-# ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), fancybox=False,
-#         shadow=True, ncol=4)
-# 
-# ax.set_ylim([0,1])
-# ax.set_xlabel('Time ($t$)', fontsize=12)
-# ax.set_ylabel('Percent of population', fontsize=12)
-# ax.set_title('{} iterations, ({},{},{},{}) initial, {} radius, {} speed'.
-#         format(iterations, percent_susceptible, percent_infective,
-#             percent_remove, percent_dead, radius, movement_speed))
-# 
-# 
-# plt.savefig('simulation_plot.png',bbox_inches='tight')
-# plt.close()
