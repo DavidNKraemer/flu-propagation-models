@@ -1,4 +1,4 @@
-print("Running simulation.py")
+print("Running plot_simulation.py")
 from setup import *
 from Person import *
 import matplotlib.animation as animation

@@ -23,9 +23,11 @@ initial_dead = 0;
 
 contagion_rate = 0.02;
 recovery_rate = 0.1;
-resistance_rate = 0.5;
+immunization_rate = 0.5;
 lost_immunity_rate = 0.1;
 fatalality_rate = 0.0003;
+
+radius = 0.5;
 
 % Time Values for a Fixed Time Solver
 tvalues = 0:1:100;
@@ -34,7 +36,7 @@ tvalues = 0:1:100;
 % * Basic Model *
 % ***************
 
-df = contagion_rate*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
+df = contagion_rate*radius*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
 dr = 0;
 ds = -df;
 
@@ -48,7 +50,7 @@ legend('infectives', 'removes', 'susceptibles')
 
 J = jacobian([df, dr, ds], [infectives, removes, susceptible]);
 
-FixPtsBM = vpasolve([df == 0; susceptible+infectives == 1], [infectives, susceptible])
+FixPtsBM = vpasolve([df == 0; susceptible+infectives == 1-initial_removes], [infectives, susceptible])
 
 
 % **********************
@@ -56,8 +58,8 @@ FixPtsBM = vpasolve([df == 0; susceptible+infectives == 1], [infectives, suscept
 % **********************
 
 
-df = contagion_rate*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
-dr = resistance_rate*recovery_rate*infectives;
+df = contagion_rate*radius*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
+dr = immunization_rate*recovery_rate*infectives;
 ds = -df - dr;
 
 FixPtsIM = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [infectives, removes, susceptible])
@@ -74,8 +76,8 @@ legend('infectives', 'removes', 'susceptibles')
 % * Immunization Model with Lost Immunity *
 % *****************************************
 
-df = contagion_rate*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
-dr = resistance_rate*recovery_rate*infectives - lost_immunity_rate*removes;
+df = contagion_rate*radius*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
+dr = immunization_rate*recovery_rate*infectives - lost_immunity_rate*removes;
 ds = -df - dr;
 
 FixPtsIMLI = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [infectives, removes, susceptible])
@@ -109,8 +111,8 @@ axis([0 100 0 1])
 % * Model with Dead People *
 % **************************
 
-df = contagion_rate*infectives*(1-infectives-removes-dead)*total_population - recovery_rate*infectives;
-dr = resistance_rate*recovery_rate*infectives - lost_immunity_rate*removes;
+df = contagion_rate*radius *infectives*(1-infectives-removes-dead)*total_population - recovery_rate*infectives;
+dr = immunization_rate*recovery_rate*infectives - lost_immunity_rate*removes;
 dd = infectives*fatalality_rate*total_population;
 ds = -df - dr - dd;
 
