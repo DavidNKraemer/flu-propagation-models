@@ -16,9 +16,9 @@ num_dead            = int(total_population * percent_dead)
 initial_breakdown = [num_susceptibles, num_infectives, num_removes, num_dead]
 
 # simulation parameters
-iterations          = 11
+iterations          = 101
 movement_speed      = 1.00e-2
-radius              = 1.0e-1
+radius              = 1.0e+5
 samples             = 20
 
 # plot standardization
