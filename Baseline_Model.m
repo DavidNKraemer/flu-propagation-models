@@ -26,6 +26,9 @@ recovery_rate = 0.1;
 immunization_rate = 0.5;
 lost_immunity_rate = 0.1;
 fatalality_rate = 0.0003;
+cost_infective = 100;
+cost_remove= 100;
+cost = [0 0 0 0];
 
 radius = 0.5;
 
@@ -41,6 +44,8 @@ dr = 0;
 ds = -df;
 
 [T, Y] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),tvalues, [initial_infectives initial_removes initial_susceptible])
+
+cost(1) = cost_remove * initial_removes + sum(cost_infective * Y(:,1));
 
 figure
 hold off
@@ -66,6 +71,8 @@ FixPtsIM = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [in
 
 [T2, Y2] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),tvalues, [initial_infectives initial_removes initial_susceptible])
 
+cost(2) = cost_remove * initial_removes + sum(cost_infective * Y2(:,1));
+
 figure
 hold off
 plot(T2,Y2*total_population)
@@ -84,6 +91,8 @@ FixPtsIMLI = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [
 
 
 [T3, Y3] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),tvalues, [initial_infectives initial_removes initial_susceptible])
+
+cost(3) = cost_remove * initial_removes + sum(cost_infective * Y3(:,1));
 
 figure
 hold off
@@ -120,6 +129,8 @@ FixPtsD = vpasolve([df == 0; dr == 0; dd == 0; susceptible+removes+infectives ==
 
 
 [T4, Y4] = ode45(@(t,y) double(subs([df; dr; dd; ds],[infectives removes dead susceptible],[y(1) y(2) y(3) y(4)])),tvalues, [initial_infectives initial_removes initial_dead initial_susceptible]);
+
+cost(4) = cost_remove * initial_removes + sum(cost_infective * Y4(:,1));
 
 figure
 hold off
