@@ -59,5 +59,5 @@ for (r, radius) in enumerate(radii):
             print("Simulation... done.")
 
 print('Saving data...', end="", flush=True)
-np.save('stochastic_data', populations)
+np.save('data/stochastic_data', populations)
 print(" done.")
