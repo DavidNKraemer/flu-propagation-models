@@ -15,7 +15,6 @@ plt.style.use('fivethirtyeight')
 
 # In[2]:
 
-get_ipython().magic('matplotlib inline')
 
 
 # In[3]:
