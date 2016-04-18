@@ -7,14 +7,14 @@ syms infectives susceptible removes dead
 % * Initial Conditions *
 % **********************
 
-total_population = 100;
+total_population = 3000;
 
 % Initial Populations for each group
 % These are given as proportions of the total population
 
-initial_infectives = 0.4;
-initial_susceptible = 0.4;
-initial_removes = 0.2;
+initial_infectives = 0.0067;
+initial_susceptible = 0.66;
+initial_removes = 0.3333;
 initial_dead = 0;
 
 % **************
@@ -25,12 +25,13 @@ contagion_rate = 0.02;
 recovery_rate = 0.1;
 immunization_rate = 0.5;
 lost_immunity_rate = 0.1;
-fatalality_rate = 0.0003;
+fatalality_rate = 0.03;
 
-radius = 0.5;
+radius = 1;
 
 % Time Values for a Fixed Time Solver
-tvalues = 0:1:100;
+total_time = 10;
+tvalues = 0:1:total_time;
 
 % ***************
 % * Basic Model *
@@ -45,7 +46,7 @@ ds = -df;
 figure
 hold off
 plot(T,Y*total_population)
-axis([0 100 0 total_population])
+axis([0 total_time 0 total_population])
 legend('infectives', 'removes', 'susceptibles')
 
 J = jacobian([df, dr, ds], [infectives, removes, susceptible]);
@@ -69,7 +70,7 @@ FixPtsIM = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [in
 figure
 hold off
 plot(T2,Y2*total_population)
-axis([0 100 0 total_population])
+axis([0 total_time 0 total_population])
 legend('infectives', 'removes', 'susceptibles')
 
 % *****************************************
@@ -88,7 +89,7 @@ FixPtsIMLI = vpasolve([df == 0; dr == 0; susceptible+removes+infectives == 1], [
 figure
 hold off
 plot(T3,Y3*total_population)
-axis([0 100 0 total_population])
+axis([0 total_time 0 total_population])
 legend('infectives', 'removes', 'susceptibles')
 
 % ********************************************************
@@ -104,16 +105,16 @@ end
 figure 
 hold off
 plot(T3,testplot)
-axis([0 100 0 1])
+axis([0 total_time 0 1])
 
 
 % **************************
 % * Model with Dead People *
 % **************************
 
-df = contagion_rate*radius *infectives*(1-infectives-removes-dead)*total_population - recovery_rate*infectives;
+df = contagion_rate*radius*infectives*(1-infectives-removes-dead)*total_population - recovery_rate*infectives;
 dr = immunization_rate*recovery_rate*infectives - lost_immunity_rate*removes;
-dd = infectives*fatalality_rate*total_population;
+dd = infectives*fatalality_rate;
 ds = -df - dr - dd;
 
 FixPtsD = vpasolve([df == 0; dr == 0; dd == 0; susceptible+removes+infectives == 1], [infectives, removes, dead, susceptible])
@@ -124,7 +125,7 @@ FixPtsD = vpasolve([df == 0; dr == 0; dd == 0; susceptible+removes+infectives ==
 figure
 hold off
 plot(T4,Y4*total_population)
-axis([0 100 0 total_population])
+axis([0 total_time 0 total_population])
 legend('infectives', 'removes', 'dead', 'susceptibles')
 
 
