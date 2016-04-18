@@ -1,11 +1,3 @@
-# TODO
-
-* Quarantine populations
-* Sensitivity analysis
-* Compile recommendations
-
-# Flu propagation models
-
 This project contains all of the scripts for the MAT 306 Project on Disease
 Propagation. Contributors:
 
@@ -14,14 +6,35 @@ Propagation. Contributors:
 * Caleb Leedy
 * Will Royle
 
-# Overleaf links
+# Using the Matlab Simulation
 
-* [Online LaTeX notes][1].
-* [Executive Summary][2].
-* [Technical Report][3].
-* [Presentation][4].
+We use four files to conduct the deterministic model results in Matlab:
 
-# Using the Python simulation
+* [`Baseline_Model.m`][mat1]
+* [`cost_consideration.m`][mat2]
+* [`Sensitivity.m`][mat3]
+* [`Sensitivity_Script.m`][mat4]
+
+
+## [`Baseline_Model.m`][mat1]
+
+This file contains the simulations of the deterministic model. It creates plots for the population-type proportions over the course of a provided lengthof time. 
+
+## [`cost_consideration.m`][mat2]
+
+This file contains the variations of our deterministic model. The script simulates the models with parameters that are initialized at the beginning of the file. While the `Baseline_Model.m` plots the population levels of each model over time the `cost_consideration.m` file allows for an easier comparison between net costs to the college.
+
+After completing the simulation one is able to plot how making more people immune to the disease alters the total cost to the college. 
+
+## [`Sensitivity.m`][mat3]
+
+This function conducts a sensitivity analysis for each parameter on each population type. 
+
+## [`Sensitivity_Script.m`][mat4]
+
+This script calls the `Sensitivity.m` function for different initial values of parameters.
+
+# Using the Python Simulation
 
 The simulation files can be found in the `simulation` directory. The files are:
 
@@ -75,14 +88,11 @@ In [1]: run 'simulation/animation.py'
 This allows you to access the environment variables used in the simulation. Not
 that you have to manually close the simulation with `CTRL-C` a few times.
 
-
- 
-
-[1]: https://www.overleaf.com/4824963fffdhs
-[2]: https://www.overleaf.com/4853557jbmcvv
-[3]: https://www.overleaf.com/4853603hjvrdn
-[4]: https://www.overleaf.com/4872212fdpzyn
-
 [py1]: simulation/Person.py
 [py2]: simulation/animation.py
 [py3]: simulation/simulation.py
+
+[mat1]: Baseline_Model.m
+[mat2]: cost_consideration.m
+[mat3]: Sensitivity.m
+[mat4]: Sensitivity_Script.m

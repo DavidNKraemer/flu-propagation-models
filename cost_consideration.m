@@ -21,12 +21,12 @@ initial_dead = 0;
 % * Parameters *
 % **************
 
-contagion_rate = 0.02;
+contagion_rate = 0.002;
 recovery_rate = 0.1;
 immunization_rate = 0.5;
 lost_immunity_rate = 0.1;
 fatalality_rate = 0.0003;
-cost_infective = 10;
+cost_infective = 20;
 cost_remove= 30;
 steps = 50;
 cost = zeros(steps,4);
