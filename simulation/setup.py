@@ -4,8 +4,8 @@ PRINT_CONFIG = True
 # populations
 total_population    = 100
 percent_susceptible = 0.4
-percent_infective   = 0.4
-percent_remove      = 0.2
+percent_infective   = 0.2
+percent_remove      = 0.8
 percent_dead        = 0.0
 
 num_susceptibles    = int(total_population * percent_susceptible)
@@ -16,10 +16,14 @@ num_dead            = int(total_population * percent_dead)
 initial_breakdown = [num_susceptibles, num_infectives, num_removes, num_dead]
 
 # simulation parameters
-iterations          = 11
+iterations          = 101
 movement_speed      = 1.00e-2
-radius              = 1.0e-1
-samples             = 20
+radius              = 1.0e+5
+samples             = 10
+
+# cost information
+cost_remove = 40.0
+cost_infective = 10.0
 
 # plot standardization
 labels = ['Infective', 'Remove', 'Susceptible',  'Dead']
@@ -42,6 +46,8 @@ if PRINT_CONFIG:
     print("\nWalk speed:\t{}".format(movement_speed))
     print("Contagion ball:\t{}".format(radius))
     print("Sample sims:\t{}".format(samples))
+    print("Vaccination cost:\t{}".format(cost_remove))
+    print("Infective cost:\t{}".format(cost_infective))
 
     print("\nModel Parameters:\n")
     print("+------------------------+--------+")
