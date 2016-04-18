@@ -1,4 +1,11 @@
-% This is the Disease model for Project 3 in MAT 306 Mathematical Modeling
+% This is the disease model for Project 3 in MAT 306 Mathematical Modeling
+%   This program generates graphs detailing the results of viral outbreaks
+%   in institutions. Graphs are generated for different simulations
+%   The program is currently optimized for swine flu, but can be easily 
+%   re-written. Note that this program will only run on Linux based
+%   machines because of packages used. 
+%
+%
 % Evan Christianson, David Kraemer, Caleb Leedy, and Will Royle
 
 syms infectives susceptible removes dead
@@ -9,7 +16,7 @@ syms infectives susceptible removes dead
 
 total_population = 3000;
 
-% Initial Populations for each group
+% Initial Populations for each category, for when the infection begins
 % These are given as proportions of the total population
 
 initial_infectives = 0.0067;
@@ -21,6 +28,7 @@ initial_dead = 0;
 % * Parameters *
 % **************
 
+% These are properties intrinsic to the disease itself. Can be changed
 contagion_rate = 0.02;
 recovery_rate = 0.1;
 immunization_rate = 0.5;
@@ -37,12 +45,15 @@ tvalues = 0:1:total_time;
 % * Basic Model *
 % ***************
 
+% See the technical report for details on why the model has the components
+% it does. Note that df is the derivative in terms of infected population.
 df = contagion_rate*radius*infectives*(1-infectives-removes)*total_population - recovery_rate*infectives;
 dr = 0;
 ds = -df;
 
+% We solve using a built in equation solver
 [T, Y] = ode45(@(t,y) double(subs([df; dr; ds],[infectives removes susceptible],[y(1) y(2) y(3)])),tvalues, [initial_infectives initial_removes initial_susceptible])
-
+% Plot our results as a function of time
 figure
 hold off
 plot(T,Y*total_population)
@@ -111,9 +122,6 @@ hold off
 plot(T4,Y4*total_population)
 axis([0 total_time 0 total_population])
 legend('infectives', 'removes', 'dead', 'susceptibles')
-
-
-
 
 
 
